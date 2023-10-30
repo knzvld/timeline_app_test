@@ -1,0 +1,48 @@
+:host {
+    position: relative;
+
+    .dashboard {
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(68, 48, 68);
+        color: white;
+        padding: 15px 30px;
+        border-radius: 20px;
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        top: 10px;
+        width: 200px;
+        .items_list{
+            display: flex;
+            flex-direction: column;
+            font-size: 18px;
+            font-weight: 600;
+            .item{
+                position: relative;
+                padding: 10px 0px;
+                &:before{
+                    content: "";
+                    width: 5px;
+                    top: 0px;
+                    left: -30px;
+                    bottom: 0px;
+                    position: absolute;
+                }
+                &:hover:not(.active){
+                    color:  rgb(111, 219, 225);
+                    &:before{
+                        background:  rgb(111, 219, 225);;
+                    }
+                }
+                &.active{
+                    &:before{
+                        background:  rgb(111, 225, 143);
+                    }
+                    color: rgb(111, 225, 143);
+                    
+                }
+            }
+        }
+    }
+}
