@@ -7,14 +7,14 @@
     </div>
     <div class="progress_bar"></div>
     <div class="time_ranger">
-      <div class="finish">00:00:00</div>
+      <div class="finish">{{initTime}}</div>
     </div>
   </div>
 </div>
 <div class="timeline_controllers">
   <div class="period">
     Duration, minutes
-    <app-drop-down-list [data]="timerValues"></app-drop-down-list>
-    <button></button>
+    <app-drop-down-list [data]="timerValues" (emitValue)="setDuration($event)"></app-drop-down-list>
+    <button (click)="setTimer(+timerValues.default)"></button>
   </div>
 </div>

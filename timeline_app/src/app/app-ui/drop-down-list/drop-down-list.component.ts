@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-drop-down-list',
@@ -7,13 +7,15 @@ import { Component, Input } from '@angular/core';
 })
 export class DropDownListComponent {
   @Input() data!: IDropDown;
+  @Output() emitValue = new EventEmitter<any>();
 
   isShown = false;
   toggleList() {
     this.isShown = !this.isShown;
   }
-  setValue(value:string| number) {
-   this.data.default = value;
+  setValue(value: any) {
+    this.data.default = value;
+    this.emitValue.emit(value);
   }
 }
 
