@@ -6,13 +6,17 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './app-components/dashboard/dashboard.component';
 import { MainPageComponent } from './app-components/main-page/main-page.component';
 import { TimelineComponent } from './app-components/timeline/timeline.component';
+import { WatchesComponent } from './app-components/watches/watches.component';
+import { DropDownListComponent } from './app-ui/drop-down-list/drop-down-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     MainPageComponent,
-    TimelineComponent
+    TimelineComponent,
+    WatchesComponent,
+    DropDownListComponent
   ],
   imports: [
     BrowserModule,

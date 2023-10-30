@@ -1,0 +1,10 @@
+<div (click)="toggleList()" class="dropdown_list" [ngClass]="{'show' : isShown}">
+  <div class="value">{{data.default}}</div>
+  <div class="options">
+    <ng-container *ngFor="let value of data?.values">
+        <div *ngIf="value != data?.default" class="option" (click)="setValue(value)">
+            {{value}}
+        </div>
+    </ng-container>
+  </div>
+</div>

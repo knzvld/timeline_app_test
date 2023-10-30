@@ -1,21 +1,177 @@
-.timeline_wrapper{
+:host {
+    --icon-color: black;
+    display: block;
     max-width: 900px;
     width: 100%;
-    border-radius: 20px;
-    background-color: rgb(55, 57, 66);
-    padding: 20px;
-    .timeline{
-        height: 20px;
-        position: relative;
-        width: 100%;
-        background: rgb(126, 126, 126);
-        .element{
-            position: absolute;
-            top: 0px;
-            bottom: 0px;
-            left: 40px;
-            width: 85px;
-            background: rgb(9, 255, 0);
+
+    .timeline_wrapper {
+        border-radius: 20px;
+        background-color: rgb(55, 57, 66);
+        padding: 35px 20px;
+
+        .timeline {
+            height: 20px;
+            position: relative;
+            width: 100%;
+            background: rgb(126, 126, 126);
+
+            .time_ranger {
+                position: absolute;
+                left: 0px;
+                right: 0px;
+                top: 28px;
+                display: flex;
+                justify-content: end;
+                color: white;
+                font-size: 14px;
+            }
+
+            .progress_bar {
+                height: 4px;
+                position: absolute;
+                left: 0px;
+                right: 0px;
+                bottom: -4px;
+                background: rgb(250 141 255 / 80%)
+            }
+
+            .element {
+                .info_label {
+                    position: absolute;
+                    left: 0px;
+                    bottom: 25px;
+                    z-index: 10;
+                    background: rgb(212, 212, 212);
+                    padding: 10px;
+                    width: 150px;
+                    border-radius: 10px;
+                    display: none;
+
+                }
+
+                cursor: pointer;
+                position: absolute;
+                top: 0px;
+                bottom: 0px;
+                left: 40px;
+                width: 100px;
+                background: rgb(9, 255, 0);
+
+                &:hover {
+                    .info_label {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+
+    .timeline_controllers {
+        margin: 15px 0px;
+
+        .period {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+
+            .dropdown_list {
+                position: relative;
+                cursor: pointer;
+                //width: 100px;
+                height: fit-content;
+                border: 1px solid #E2E2E2;
+                border-radius: 10px;
+                font-size: 14px;
+                font-weight: 600;
+
+                &.show {
+                    border-bottom-left-radius: 0px;
+                    border-bottom-right-radius: 0px;
+
+                    .options {
+                        display: block;
+                    }
+
+                    .value::after {
+                        transform: rotate(180deg);
+                    }
+                }
+
+                .options {
+                    display: none;
+                    overflow: hidden;
+                    position: absolute;
+                    top: 37px;
+                    border: 1px solid #E2E2E2;
+                    border-bottom-left-radius: 10px;
+                    border-bottom-right-radius: 10px;
+                    left: 0px;
+                    right: 0px;
+
+                    .option {
+                        padding: 5px 20px;
+
+                        &:hover {
+                            background-color: #E2E2E2;
+                            box-sizing: border-box;
+                        }
+                    }
+
+                    .option:not(:last-child) {
+                        border-bottom: 1px solid #E2E2E2;
+                    }
+                }
+
+                .value {
+                    padding: 10px 20px;
+                    position: relative;
+                    padding-right: 100px;
+                    &:after {
+                        transition: 0.3s ease all;
+                        content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5.01246 9C4.11226 9 3.66144 10.0766 4.29798 10.7062C4.29797 10.7062 4.29798 10.7062 4.29798 10.7062L7.4273 13.8016C9.58289 15.9339 10.6607 17 12 17C13.3393 17 14.4171 15.9339 16.5727 13.8016L19.702 10.7062C20.3386 10.0766 19.8877 9 18.9875 9C18.7196 9 18.4625 9.1053 18.2731 9.29274L15.1437 12.3882C14.0255 13.4942 13.3276 14.1786 12.7544 14.6112C12.2371 15.0016 12.0565 15.0012 12.0028 15.001L12 15.001L11.9973 15.001C11.9435 15.0012 11.7629 15.0016 11.2456 14.6112C10.6724 14.1786 9.97446 13.4942 8.85627 12.3882L5.72695 9.29274C5.72695 9.29274 5.72695 9.29274 5.72695 9.29274C5.53745 9.1053 5.28044 9 5.01246 9Z" fill="black"/></svg>');
+                        width: 24px;
+                        height: 24px;
+                        position: absolute;
+                        right: 10px;
+                        top: 8px;
+                    }
+                }
+            }
+
+            button {
+                height: fit-content;
+                height: -webkit-fit-content;
+                width: fit-content;
+                width: -webkit-fit-content;
+                font-size: 18px;
+                border: 1px solid #e2e2e2 !important;
+                border-radius: 10px;
+                outline: none !important;
+                background: none !important;
+                box-shadow: none !important;
+            }
+
+            button {
+                cursor: pointer;
+                margin-left: auto;
+                font-weight: 700;
+                padding: 10px 40px;
+                position: relative;
+
+                &:hover {
+                    &::after {
+                        content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14.8529 6.51206L14.9336 6.56045C18.9647 8.97903 21 10.2002 21 12C21 13.7999 18.9647 15.021 14.9336 17.4396L14.8529 17.488L13.0865 18.5478L13.0845 18.549C9.05704 20.9655 7.04355 22.1736 5.5219 21.312C4 20.4504 4 18.1012 4 13.4029V10.5971C4 5.89882 4 3.54966 5.5219 2.68798C7.04355 1.82643 9.05704 3.03452 13.0845 5.45098L13.0865 5.45218L14.8529 6.51206Z" fill="black"/></svg>');
+                    }
+                }
+
+                &::after {
+                    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.1985 11.0408C17.3195 10.3185 15.9239 9.48702 13.824 8.22705L12.0575 7.16717C9.98506 5.92371 8.62575 5.11405 7.59818 4.6879C7.10374 4.48284 6.81174 4.42262 6.65132 4.41232C6.54245 4.40533 6.51878 4.42089 6.50953 4.42697L6.5073 4.42838L6.50495 4.42956C6.49497 4.43437 6.46946 4.44666 6.41944 4.54361C6.34573 4.68647 6.24714 4.96784 6.16858 5.49732C6.00533 6.59771 6 8.1803 6 10.5971L6 13.4029C6 15.8197 6.00533 17.4023 6.16858 18.5027C6.24714 19.0322 6.34573 19.3135 6.41944 19.4564C6.46946 19.5534 6.49497 19.5656 6.50495 19.5705L6.5073 19.5716L6.50953 19.573C6.51878 19.5791 6.54244 19.5947 6.65132 19.5877C6.81174 19.5774 7.10374 19.5172 7.59818 19.3121C8.62575 18.886 9.98506 18.0763 12.0575 16.8329L13.824 15.773C15.9239 14.513 17.3195 13.6815 18.1985 12.9592C19.0372 12.27 19.0023 12.0169 19.0001 12.0008V11.9992C19.0023 11.9832 19.0372 11.7301 18.1985 11.0408ZM21 12C21 10.1882 18.9376 8.96282 14.8529 6.51206L13.0865 5.45218C9.0577 3.03492 7.0438 1.82629 5.5219 2.68798C4 3.54966 4 5.89882 4 10.5971V13.4029C4 18.1012 4 20.4504 5.5219 21.312C7.0438 22.1737 9.0577 20.9651 13.0865 18.5478L14.8529 17.488C18.9376 15.0372 21 13.8118 21 12Z" fill="black"/></svg>');
+                    width: 24px;
+                    height: 24px;
+                }
+            }
         }
     }
 }

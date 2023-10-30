@@ -1,9 +1,20 @@
 <h1>Timeline</h1>
+<app-watches></app-watches>
 <div class="timeline_wrapper">
-    <div class="timeline">
-        <div class="element"></div>
+  <div class="timeline">
+    <div class="element">
+      <div class="info_label">Event data</div>
     </div>
-    <div class="legends">
-
+    <div class="progress_bar"></div>
+    <div class="time_ranger">
+      <div class="finish">00:00:00</div>
     </div>
+  </div>
+</div>
+<div class="timeline_controllers">
+  <div class="period">
+    Duration, minutes
+    <app-drop-down-list [data]="timerValues"></app-drop-down-list>
+    <button></button>
+  </div>
 </div>
