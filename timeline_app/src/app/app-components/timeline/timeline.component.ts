@@ -63,13 +63,15 @@ export class TimelineComponent implements OnInit, AfterViewInit {
       this.viewRef?.clear();
     })
     events.forEach(event => {
-      this.viewRef?.createComponent(TimelineElementComponent).setInput('timeLineElemtConfig', {
+      let el = this.viewRef?.createComponent(TimelineElementComponent);
+      el?.setInput('timeLineElemtConfig', {
         event:event,
         track_width: this.timeline.nativeElement.offsetWidth,
         total_duration: seconds,
         init_moment: moment().format('x'),
-        onCountdown: this.onCountdown,
       })
+      el?.setInput('onCountDown', this.onCountdown)
+      
     })
     this.setProgressBar(100);
     let countDownTimer = setInterval(() => {

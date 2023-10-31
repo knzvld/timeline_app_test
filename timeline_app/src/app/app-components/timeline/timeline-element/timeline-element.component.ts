@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
@@ -14,6 +15,7 @@ import 'moment/locale/ru';
 
 @Component({
   selector: 'app-timeline-element',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './timeline-element.component.html',
   styleUrls: ['./timeline-element.component.scss'],
 })
@@ -22,13 +24,13 @@ export class TimelineElementComponent
 {
   @ViewChild('element') element!: ElementRef;
   @Input() timeLineElemtConfig!: TimelineElementConfig;
+  @Input() onCountDown!: boolean;
   shiftPerSecond!: number;
   eventStart: any;
   eventEnd: any;
   init_moment: any;
   rightPos: any;
   eventData?: any;
-  onCountDown: any;
 
   ngOnInit(): void {
     this.eventData = {
@@ -41,7 +43,6 @@ export class TimelineElementComponent
       type: this.timeLineElemtConfig.event.type,
       duration: +this.timeLineElemtConfig.event.dateEnd - +this.timeLineElemtConfig.event.dateStart
     };
-    this.onCountDown = this.timeLineElemtConfig.onCountdown;
     this.shiftPerSecond = 100 / this.timeLineElemtConfig.total_duration; // in percent %
     this.eventStart = +this.timeLineElemtConfig.event.dateStart;
     this.eventEnd = +this.timeLineElemtConfig.event.dateEnd;
@@ -78,6 +79,5 @@ export interface TimelineElementConfig {
   event: TimeLineEvent,
   track_width: number,
   total_duration: number,
-  init_moment: number,
-  onCountdown: boolean
+  init_moment: number
 }
