@@ -45,6 +45,11 @@ export class EventsGeneratorService {
     return this.events;
   }
 
+  dropData(){
+    this.intervalsArray = [];
+    this.events = [];
+  }
+
   randomVal(min: number, max: number): number {
     let rand = min + Math.random() * (max + 1 - min);
     return rand;

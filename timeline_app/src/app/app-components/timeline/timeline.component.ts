@@ -49,7 +49,7 @@ export class TimelineComponent implements OnInit, AfterViewInit {
   }
 
   setTimer(duration: number): void {
-    this.viewRef?.clear();
+    this.eventGeneratorService.dropData();
     this.onCountdown = true;
     const milliseconds = duration * 60000;
     const seconds = duration * 60;
@@ -59,6 +59,9 @@ export class TimelineComponent implements OnInit, AfterViewInit {
       max_delay: 3,
       duration: milliseconds,
     });
+    events.forEach(()=> {
+      this.viewRef?.clear();
+    })
     events.forEach(event => {
       this.viewRef?.createComponent(TimelineElementComponent).setInput('timeLineElemtConfig', {
         event:event,
