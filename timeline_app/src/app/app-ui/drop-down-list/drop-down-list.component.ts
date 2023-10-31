@@ -7,10 +7,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class DropDownListComponent {
   @Input() data!: IDropDown;
+  @Input() disabled!: boolean;
   @Output() emitValue = new EventEmitter<any>();
 
   isShown = false;
   toggleList() {
+    if(this.disabled) return;
     this.isShown = !this.isShown;
   }
   setValue(value: any) {

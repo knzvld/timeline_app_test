@@ -1,4 +1,4 @@
-<div (click)="toggleList()" class="dropdown_list" [ngClass]="{'show' : isShown}">
+<div (click)="toggleList()" class="dropdown_list" [ngClass]="{'show' : isShown, 'disabled' : disabled}">
   <div class="value">{{data.default}}</div>
   <div class="options">
     <ng-container *ngFor="let value of data?.values">

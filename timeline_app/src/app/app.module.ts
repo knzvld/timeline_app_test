@@ -8,6 +8,7 @@ import { MainPageComponent } from './app-components/main-page/main-page.componen
 import { TimelineComponent } from './app-components/timeline/timeline.component';
 import { WatchesComponent } from './app-components/watches/watches.component';
 import { DropDownListComponent } from './app-ui/drop-down-list/drop-down-list.component';
+import { TimelineElementComponent } from './app-components/timeline/timeline-element/timeline-element.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DropDownListComponent } from './app-ui/drop-down-list/drop-down-list.co
     MainPageComponent,
     TimelineComponent,
     WatchesComponent,
-    DropDownListComponent
+    DropDownListComponent,
+    TimelineElementComponent
   ],
   imports: [
     BrowserModule,

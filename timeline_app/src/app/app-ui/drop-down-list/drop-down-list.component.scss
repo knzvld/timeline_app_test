@@ -1,12 +1,16 @@
 .dropdown_list {
     position: relative;
-    cursor: pointer;
     height: fit-content;
     border: 1px solid #E2E2E2;
     border-radius: 10px;
     font-size: 14px;
     font-weight: 600;
-
+    &.disabled{
+        opacity: 0.1;
+    }
+    &:hover:not(.disabled){
+        cursor: pointer;
+    }
     &.show {
         border-bottom: none;
         border-bottom-left-radius: 0px;

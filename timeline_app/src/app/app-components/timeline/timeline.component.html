@@ -1,11 +1,9 @@
 <h1>Timeline</h1>
 <app-watches></app-watches>
 <div class="timeline_wrapper">
-  <div class="timeline">
-    <div class="element">
-      <div class="info_label">Event data</div>
-    </div>
-    <div class="progress_bar"></div>
+  <div #timeline class="timeline">
+    <app-timeline-element></app-timeline-element>
+    <div #progressBar class="progress_bar"></div>
     <div class="time_ranger">
       <div class="finish">{{initTime}}</div>
     </div>
@@ -14,7 +12,7 @@
 <div class="timeline_controllers">
   <div class="period">
     Duration, minutes
-    <app-drop-down-list [data]="timerValues" (emitValue)="setDuration($event)"></app-drop-down-list>
-    <button (click)="setTimer(+timerValues.default)"></button>
+    <app-drop-down-list [disabled]="onCountdown" [data]="timerValues" (emitValue)="setDuration($event)"></app-drop-down-list>
+    <button [disabled]="onCountdown" name="start" (click)="setTimer(+timerValues.default)"></button>
   </div>
 </div>
