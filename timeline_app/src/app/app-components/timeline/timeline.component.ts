@@ -53,6 +53,7 @@ export class TimelineComponent implements OnInit, AfterViewInit {
   setTimer(duration: number): void {
     this.eventGeneratorService.dropData();
     this.onCountdown = true;
+    localStorage.setItem('flag', 'true');
     const milliseconds = duration * 60000;
     const seconds = duration * 60;
     let counter = 1;
@@ -87,6 +88,7 @@ export class TimelineComponent implements OnInit, AfterViewInit {
       if (counter > seconds) {
         clearInterval(countDownTimer);
         this.onCountdown = false;
+        localStorage.setItem('flag', 'false');
       }
     }, 1000);
   }

@@ -4,8 +4,10 @@ import {
   Component,
   ElementRef,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { count } from 'rxjs';
@@ -20,7 +22,7 @@ import 'moment/locale/ru';
   styleUrls: ['./timeline-element.component.scss'],
 })
 export class TimelineElementComponent
-  implements OnInit, OnDestroy, AfterViewInit
+  implements OnInit, OnDestroy, AfterViewInit, OnChanges
 {
   @ViewChild('element') element!: ElementRef;
   @Input() timeLineElemtConfig!: TimelineElementConfig;
@@ -41,7 +43,9 @@ export class TimelineElementComponent
         'YYYY-MM-DD HH:mm:ss'
       ),
       type: this.timeLineElemtConfig.event.type,
-      duration: +this.timeLineElemtConfig.event.dateEnd - +this.timeLineElemtConfig.event.dateStart
+      duration:
+        +this.timeLineElemtConfig.event.dateEnd -
+        +this.timeLineElemtConfig.event.dateStart,
     };
     this.shiftPerSecond = 100 / this.timeLineElemtConfig.total_duration; // in percent %
     this.eventStart = +this.timeLineElemtConfig.event.dateStart;
@@ -62,7 +66,7 @@ export class TimelineElementComponent
     let counter = 100;
     let per100MilisecondShift = 0.1 * this.shiftPerSecond;
     let interval = setInterval(() => {
-      if (milliseconds - counter > 0 && this.onCountDown) {
+      if (milliseconds - counter > 0 && localStorage.getItem('flag') == 'true') {
         right = right - per100MilisecondShift;
         this.element.nativeElement.style.right = `${right}%`;
         counter = counter + 100;
@@ -72,12 +76,15 @@ export class TimelineElementComponent
     }, 100);
   }
   ngAfterViewInit(): void {}
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+  }
   ngOnDestroy(): void {}
 }
 
 export interface TimelineElementConfig {
-  event: TimeLineEvent,
-  track_width: number,
-  total_duration: number,
-  init_moment: number
+  event: TimeLineEvent;
+  track_width: number;
+  total_duration: number;
+  init_moment: number;
 }
