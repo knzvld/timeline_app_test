@@ -1,14 +1,20 @@
 import {
   AfterViewInit,
   Component,
+  ComponentRef,
   ElementRef,
   OnInit,
   ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import * as moment from 'moment';
 import 'moment/locale/ru';
 import { EventsGeneratorService } from 'src/app/app-services/events-generator.service';
 import { IDropDown } from 'src/app/app-ui/drop-down-list/drop-down-list.component';
+import {
+  TimelineElementComponent,
+  TimelineElementConfig,
+} from './timeline-element/timeline-element.component';
 
 @Component({
   selector: 'app-timeline',
@@ -17,6 +23,9 @@ import { IDropDown } from 'src/app/app-ui/drop-down-list/drop-down-list.componen
 })
 export class TimelineComponent implements OnInit, AfterViewInit {
   constructor(private eventGeneratorService: EventsGeneratorService) {}
+  @ViewChild('timeline_element', { read: ViewContainerRef }) 
+  private viewRef?: ViewContainerRef;
+  private componentRef = ComponentRef<TimelineElementComponent>;
 
   @ViewChild('timeline') timeline!: ElementRef;
   @ViewChild('progressBar') progressBar!: ElementRef;
@@ -28,28 +37,35 @@ export class TimelineComponent implements OnInit, AfterViewInit {
   initTime?: string;
   duration = this.timerValues.default;
   onCountdown = false;
+  test!: TimelineElementConfig;
 
   ngOnInit(): void {
     this.initTime = moment(+this.duration * 60000).format('mm:ss');
   }
-  ngAfterViewInit(): void {
-    
-  }
-
+  ngAfterViewInit(): void {}
 
   setProgressBar(value: number): void {
     this.progressBar.nativeElement.style.right = `${value}%`;
   }
 
   setTimer(duration: number): void {
+    this.viewRef?.clear();
     this.onCountdown = true;
     const milliseconds = duration * 60000;
     const seconds = duration * 60;
     let counter = 1;
-    this.eventGeneratorService.generateEvents({
-      min_delay:0.5,
-      max_delay:4,
-      duration: milliseconds
+    let events = this.eventGeneratorService.generateEvents({
+      min_delay: 0.5,
+      max_delay: 3,
+      duration: milliseconds,
+    });
+    events.forEach(event => {
+      this.viewRef?.createComponent(TimelineElementComponent).setInput('timeLineElemtConfig', {
+        event:event,
+        track_width: this.timeline.nativeElement.offsetWidth,
+        total_duration: seconds,
+        init_moment: moment().format('x')
+      })
     })
     this.setProgressBar(100);
     let countDownTimer = setInterval(() => {
@@ -70,7 +86,4 @@ export class TimelineComponent implements OnInit, AfterViewInit {
   }
 
   
-
-
-
 }

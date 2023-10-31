@@ -10,6 +10,8 @@
         padding: 35px 20px;
 
         .timeline {
+            overflow-x: clip;
+
             height: 20px;
             position: relative;
             width: 100%;
@@ -163,12 +165,14 @@
                 padding: 10px 40px;
                 position: relative;
                 margin-left: auto;
-                &:disabled{
+
+                &:disabled {
                     opacity: 0.2;
                 }
-               
+
                 &:hover:not(:disabled) {
                     cursor: pointer;
+
                     &::after {
                         content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14.8529 6.51206L14.9336 6.56045C18.9647 8.97903 21 10.2002 21 12C21 13.7999 18.9647 15.021 14.9336 17.4396L14.8529 17.488L13.0865 18.5478L13.0845 18.549C9.05704 20.9655 7.04355 22.1736 5.5219 21.312C4 20.4504 4 18.1012 4 13.4029V10.5971C4 5.89882 4 3.54966 5.5219 2.68798C7.04355 1.82643 9.05704 3.03452 13.0845 5.45098L13.0865 5.45218L14.8529 6.51206Z" fill="black"/></svg>');
                     }

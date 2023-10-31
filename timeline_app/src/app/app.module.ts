@@ -9,6 +9,7 @@ import { TimelineComponent } from './app-components/timeline/timeline.component'
 import { WatchesComponent } from './app-components/watches/watches.component';
 import { DropDownListComponent } from './app-ui/drop-down-list/drop-down-list.component';
 import { TimelineElementComponent } from './app-components/timeline/timeline-element/timeline-element.component';
+import { ElementDirectiveDirective } from './app-directives/element-directive.directive';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TimelineElementComponent } from './app-components/timeline/timeline-ele
     TimelineComponent,
     WatchesComponent,
     DropDownListComponent,
-    TimelineElementComponent
+    TimelineElementComponent,
+    ElementDirectiveDirective
   ],
   imports: [
     BrowserModule,

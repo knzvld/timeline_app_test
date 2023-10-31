@@ -1,50 +1,48 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import 'moment/locale/ru';
+import { Observable, concatMap, from, map, timer } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class EventsGeneratorService {
-  events: Event[] = [];
+  events: TimeLineEvent[] = [];
   lastCreatedDate?: any;
   dateNow = parseInt(moment().format('x'));
+  intervalsArray: any[] = [];
 
   generateEvents(config: EventGeneratorConfig) {
-    this.randomVal(config.min_delay, config.max_delay);
+    let min = config.min_delay;
+    let max = config.max_delay;
+    let val = this.randomVal;
 
-    this.lastCreatedDate = moment()
-      .add(this.randomVal(config.min_delay, config.max_delay), 'seconds')
-      .format('x');
+    function getMoment(ms?: number, n?: number) {
+      if (!n) n = 0;
+      return moment(ms)
+        .add(val(min, max) + n, 'seconds')
+        .format('x');
+    }
+
+    this.lastCreatedDate = getMoment();
 
     do {
       this.events.push({
         dateStart: this.lastCreatedDate,
-        dateEnd: moment(+this.lastCreatedDate)
-          .add(this.randomVal(config.min_delay, config.max_delay), 'seconds')
-          .format('x'),
-        type: this.getEventType(
-          +moment(+this.lastCreatedDate)
-            .add(this.randomVal(config.min_delay, config.max_delay), 'seconds')
-            .format('x') - +this.lastCreatedDate
-        ),
+        dateEnd: getMoment(+this.lastCreatedDate),
+        type:'',
       });
-      this.lastCreatedDate = moment(+this.lastCreatedDate)
-        .add(this.randomVal(config.min_delay, config.max_delay) + 5, 'seconds')
-        .format('x');
+      this.lastCreatedDate = getMoment(+this.lastCreatedDate, 2);
     } while (
-      +this.events[this.events.length - 1].dateEnd - this.dateNow <
+      Number(this.events[this.events.length - 1].dateEnd) - this.dateNow <
       config.duration
     );
 
-    console.log(
       this.events.map(item => {
-        return {
-          dateStart: moment(+item.dateStart).format("YYYY MM DD HH:mm:ss"),
-          dateEnd: moment(+item.dateEnd).format("YYYY MM DD HH:mm:ss"),
-          type: item.type
-        }
+        item.type = this.getEventType(Math.abs(+item.dateStart - +item.dateEnd));
       })
-    );
+
+
+    return this.events;
   }
 
   randomVal(min: number, max: number): number {
@@ -52,10 +50,11 @@ export class EventsGeneratorService {
     return rand;
   }
 
-  getEventType(duration: number): string {
+  getEventType(duration: number) {
     if (duration < 1000) {
       return EventTypes.NORMAL;
-    } else if (duration < 2500) {
+    }
+    if (duration < 2500) {
       return EventTypes.DANGEROUS;
     } else {
       return EventTypes.CRITICAL;
@@ -69,7 +68,7 @@ export enum EventTypes {
   CRITICAL = '#de2f2f',
 }
 export type Data = {
-  events: Event[];
+  events: TimeLineEvent[];
   intervalDates: IntervalDates;
 };
 export interface IntervalDates {
@@ -81,8 +80,8 @@ export interface EventGeneratorConfig {
   max_delay: number;
   duration: number;
 }
-export interface Event {
+export interface TimeLineEvent {
   dateStart: string;
   dateEnd: string;
-  type: EventTypes[keyof EventTypes]
+  type: EventTypes[keyof EventTypes];
 }

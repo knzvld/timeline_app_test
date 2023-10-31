@@ -1,24 +1,21 @@
 .element {
     .info_label {
         position: absolute;
-        left: 0px;
         bottom: 25px;
         z-index: 10;
         background: rgb(212, 212, 212);
         padding: 10px;
-        width: 150px;
         border-radius: 10px;
         display: none;
+        width: 200px;
 
     }
 
     cursor: pointer;
     position: absolute;
     top: 0px;
+    left: -100%;
     bottom: 0px;
-    left: 40px;
-    width: 100px;
-    background: rgb(9, 255, 0);
 
     &:hover {
         .info_label {

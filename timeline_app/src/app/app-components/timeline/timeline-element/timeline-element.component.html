@@ -1,3 +1,8 @@
-<div class="element">
-    <div class="info_label">Event data</div>
+<div #element class="element" [ngStyle]="{'background': eventData?.type}">
+    <div class="info_label">
+        date_start: {{eventData?.dateStart}}<br>
+        date_end: {{eventData?.dateEnd}}<br>
+        type: {{eventData?.type}},<br>
+        duration: {{eventData?.duration}} ms
+    </div>
 </div>
