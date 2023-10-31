@@ -77,7 +77,7 @@ export class TimelineComponent implements OnInit, AfterViewInit {
         total_duration: seconds,
         init_moment: moment().format('x'),
       })
-      el?.setInput('onCountDown', this.onCountdown)
+      
       
     })
     this.setProgressBar(100);
@@ -87,8 +87,10 @@ export class TimelineComponent implements OnInit, AfterViewInit {
       counter++;
       if (counter > seconds) {
         clearInterval(countDownTimer);
-        this.onCountdown = false;
-        localStorage.setItem('flag', 'false');
+        this.elms.forEach(element=> {
+          element.instance.foo();
+        })
+       
       }
     }, 1000);
   }

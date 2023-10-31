@@ -26,13 +26,17 @@ export class TimelineElementComponent
 {
   @ViewChild('element') element!: ElementRef;
   @Input() timeLineElemtConfig!: TimelineElementConfig;
-  @Input() onCountDown!: boolean;
+  onCountDown: boolean = true;
   shiftPerSecond!: number;
   eventStart: any;
   eventEnd: any;
   init_moment: any;
   rightPos: any;
   eventData?: any;
+
+  foo(){
+    this.onCountDown = false;
+  }
 
   ngOnInit(): void {
     this.eventData = {
@@ -66,7 +70,7 @@ export class TimelineElementComponent
     let counter = 100;
     let per100MilisecondShift = 0.1 * this.shiftPerSecond;
     let interval = setInterval(() => {
-      if (milliseconds - counter > 0 && localStorage.getItem('flag') == 'true') {
+      if (milliseconds - counter > 0 && this.onCountDown) {
         right = right - per100MilisecondShift;
         this.element.nativeElement.style.right = `${right}%`;
         counter = counter + 100;
