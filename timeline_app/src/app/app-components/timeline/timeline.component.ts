@@ -67,7 +67,8 @@ export class TimelineComponent implements OnInit, AfterViewInit {
         event:event,
         track_width: this.timeline.nativeElement.offsetWidth,
         total_duration: seconds,
-        init_moment: moment().format('x')
+        init_moment: moment().format('x'),
+        onCountdown: this.onCountdown,
       })
     })
     this.setProgressBar(100);

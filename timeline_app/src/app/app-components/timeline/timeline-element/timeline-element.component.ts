@@ -28,6 +28,7 @@ export class TimelineElementComponent
   init_moment: any;
   rightPos: any;
   eventData?: any;
+  onCountDown: any;
 
   ngOnInit(): void {
     this.eventData = {
@@ -40,6 +41,7 @@ export class TimelineElementComponent
       type: this.timeLineElemtConfig.event.type,
       duration: +this.timeLineElemtConfig.event.dateEnd - +this.timeLineElemtConfig.event.dateStart
     };
+    this.onCountDown = this.timeLineElemtConfig.onCountdown;
     this.shiftPerSecond = 100 / this.timeLineElemtConfig.total_duration; // in percent %
     this.eventStart = +this.timeLineElemtConfig.event.dateStart;
     this.eventEnd = +this.timeLineElemtConfig.event.dateEnd;
@@ -59,7 +61,7 @@ export class TimelineElementComponent
     let counter = 100;
     let per100MilisecondShift = 0.1 * this.shiftPerSecond;
     let interval = setInterval(() => {
-      if (milliseconds - counter > 0) {
+      if (milliseconds - counter > 0 && this.onCountDown) {
         right = right - per100MilisecondShift;
         this.element.nativeElement.style.right = `${right}%`;
         counter = counter + 100;
@@ -73,8 +75,9 @@ export class TimelineElementComponent
 }
 
 export interface TimelineElementConfig {
-  event: TimeLineEvent;
-  track_width: number;
-  total_duration: number;
-  init_moment: number;
+  event: TimeLineEvent,
+  track_width: number,
+  total_duration: number,
+  init_moment: number,
+  onCountdown: boolean
 }
