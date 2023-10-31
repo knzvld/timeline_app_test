@@ -22,7 +22,7 @@ import 'moment/locale/ru';
   styleUrls: ['./timeline-element.component.scss'],
 })
 export class TimelineElementComponent
-  implements OnInit, OnDestroy, AfterViewInit, OnChanges
+  implements OnInit, OnDestroy, AfterViewInit
 {
   @ViewChild('element') element!: ElementRef;
   @Input() timeLineElemtConfig!: TimelineElementConfig;
@@ -80,9 +80,7 @@ export class TimelineElementComponent
     }, 100);
   }
   ngAfterViewInit(): void {}
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-  }
+  
   ngOnDestroy(): void {}
 }
 
