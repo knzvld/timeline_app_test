@@ -30,6 +30,8 @@ export class TimelineComponent implements OnInit, AfterViewInit {
   @ViewChild('timeline') timeline!: ElementRef;
   @ViewChild('progressBar') progressBar!: ElementRef;
 
+  elms: ComponentRef<TimelineElementComponent>[] = [];
+
   timerValues: IDropDown = {
     default: 1,
     values: [1, 2, 3, 5, 10],
@@ -62,8 +64,12 @@ export class TimelineComponent implements OnInit, AfterViewInit {
     events.forEach(()=> {
       this.viewRef?.clear();
     })
+    this.elms.forEach((item)=> {
+      item.destroy();
+    })
     events.forEach(event => {
       let el = this.viewRef?.createComponent(TimelineElementComponent);
+      this.elms.push(el!);
       el?.setInput('timeLineElemtConfig', {
         event:event,
         track_width: this.timeline.nativeElement.offsetWidth,

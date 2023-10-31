@@ -12,6 +12,7 @@ export class EventsGeneratorService {
   intervalsArray: any[] = [];
 
   generateEvents(config: EventGeneratorConfig) {
+    this.dateNow = parseInt(moment().format('x'));
     let min = config.min_delay;
     let max = config.max_delay;
     let val = this.randomVal;
