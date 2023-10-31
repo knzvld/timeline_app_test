@@ -56,6 +56,11 @@ export class EventsGeneratorService {
     return rand;
   }
 
+  getEventTypeKey(value: any){
+    return Object.keys(EventTypes)[Object.values(EventTypes).indexOf(value)]
+  }
+
+
   getEventType(duration: number) {
     if (duration < 1000) {
       return EventTypes.NORMAL;

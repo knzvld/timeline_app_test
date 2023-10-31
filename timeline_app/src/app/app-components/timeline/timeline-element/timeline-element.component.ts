@@ -11,7 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { count } from 'rxjs';
-import { TimeLineEvent } from 'src/app/app-services/events-generator.service';
+import { EventsGeneratorService, TimeLineEvent } from 'src/app/app-services/events-generator.service';
 import * as moment from 'moment';
 import 'moment/locale/ru';
 
@@ -24,6 +24,8 @@ import 'moment/locale/ru';
 export class TimelineElementComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
+  constructor(private eventGeneratorService: EventsGeneratorService){}
+
   @ViewChild('element') element!: ElementRef;
   @Input() timeLineElemtConfig!: TimelineElementConfig;
   onCountDown: boolean = true;
@@ -46,7 +48,7 @@ export class TimelineElementComponent
       dateEnd: moment(+this.timeLineElemtConfig.event.dateEnd).format(
         'YYYY-MM-DD HH:mm:ss'
       ),
-      type: this.timeLineElemtConfig.event.type,
+      type: this.eventGeneratorService.getEventTypeKey(this.timeLineElemtConfig.event.type),
       duration:
         +this.timeLineElemtConfig.event.dateEnd -
         +this.timeLineElemtConfig.event.dateStart,
